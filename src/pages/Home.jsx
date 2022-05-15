@@ -1,9 +1,13 @@
+import { useState } from 'react'
+import SearchInput from '../components/search/SearchInput'
 
-function Home() {
+const Home = () => {
+  const [loading, setLoading] = useState(false)
+
   return (
-    <>
-      Home
-    </>
+    <div className='form-control'>
+      <SearchInput loading={loading} />
+    </div>
   )
 }
 
