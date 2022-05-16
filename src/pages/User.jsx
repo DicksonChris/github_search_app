@@ -1,6 +1,9 @@
 import { useParams, Link } from 'react-router-dom'
 // import Loading from '../components/layout/Loading'
 
+
+//https://api.github.com/users/<login>
+
 function User() {
   // display user info
 
@@ -27,7 +30,7 @@ function User() {
   // const websiteUrl = blog?.startsWith('http') ? blog : 'https://' + blog
 
   return (
-    <>
+    <div className='container mx-auto'>
       <Link to='/' className='btn '>
         Back To Search
       </Link>
@@ -56,7 +59,7 @@ function User() {
         </a>
       </div> */}
       {/* Repos component */}
-    </>
+    </div>
   )
 }
 

@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import SearchInput from '../components/search/SearchInput'
+import SearchResults from '../components/search/SearchResults'
 
 const Home = () => {
-  const [loading, setLoading] = useState(false)
 
   return (
-    <div className='form-control'>
-      <SearchInput loading={loading} />
+    <div className='container mx-auto'>
+      <SearchInput />
+      <SearchResults />
     </div>
   )
 }
