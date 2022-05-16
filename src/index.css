@@ -5,11 +5,9 @@
 .input-user-search {
   @apply input input-bordered input-lg w-full max-w-md text-base-content bg-base-300 focus:outline-none focus:bg-base-content focus:text-base-300 px-4;
 
-  border-radius: 0.375rem 0 0 0.375rem/* 6px 0 0 6px */;
+  border-radius: 0.375rem 0 0 0.375rem /* 6px 0 0 6px */;
 }
 
-@layer utilities {
-    .main-container {
-        @apply mx-auto px-4 flex flex-col justify-between min-h-screen m-0
-    }
+.min-w-24 {
+  min-width: 6rem;
 }
