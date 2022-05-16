@@ -6,13 +6,13 @@ const Alert = ({ show }) => {
       <div className='relative'>
         {true ? (
           <div
-            className={`absolute bg-base-300 top-16 max-w-lg alert shadow-lg ${
+            className={`absolute bg-transparent top-14 max-w-lg alert ${
               show || 'hidden'
             }`}
           >
             <div>
               <AiFillInfoCircle className='fill-info' />{' '}
-              <span>Enter a username to begin.</span>
+              <span>Enter a username</span>
             </div>
           </div>
         ) : (

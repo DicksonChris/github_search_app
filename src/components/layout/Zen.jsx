@@ -14,11 +14,11 @@ const Zen = () => {
   }, [])
 
   return (
-    <div className='h-8'>
-      <blockquote className='prose m-0 mt-3 leading-none'>
+    <div className='flex flex-col mt-3 mb-1'>
+      <blockquote className='prose leading-none'>
         <q>{`${zenQuote}`}</q>
       </blockquote>
-      <cite className='m-0 mb-1 leading-none'>— Github Zen</cite>
+      <p className='leading-none'>— Github Zen</p>
     </div>
   )
 }
