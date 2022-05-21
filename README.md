@@ -4,7 +4,7 @@ App to search Github users and display their info. This takes inspiration from T
 
 ## Demo
 
-.gif
+TODO .gif
 
 ## Usage
 
