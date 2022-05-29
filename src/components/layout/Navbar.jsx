@@ -14,7 +14,7 @@ function Navbar({ title }) {
 
   return (
     <div className='bg-primary'>
-      <div className='container m-0 min-w-[100vw]'>
+      <div className='container mx-auto'>
         <nav className='navbar text-primary-content'>
           <div className='container mx-auto'>
             <div className='flex '>
