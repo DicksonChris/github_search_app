@@ -1,7 +1,13 @@
 import { useEffect, useState, useRef } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import PropTypes from 'prop-types'
 
+/**
+ * Wraps app pages, handles header, footer, and page height. 
+ * the bottom of the page by adding a min-height to the main content.
+ * @props { node }  children  Child components
+ */
 const Container = ({ children }) => {
   const [navbarHeight, setNavbarHeight] = useState(0)
   const [footerHeight, setFooterHeight] = useState(0)
@@ -33,6 +39,13 @@ const Container = ({ children }) => {
       </span>
     </div>
   )
+}
+
+Container.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]).isRequired
 }
 
 export default Container
