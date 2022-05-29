@@ -13,40 +13,26 @@ const Container = ({ children }) => {
     setFooterHeight(footerRef.current.offsetHeight)
   }, [])
 
+  const calcContentHeight = {
+    minHeight: `calc(100vh - ${navbarHeight + footerHeight}px)`,
+  }
+
   return (
-    <>
-      <div ref={navbarRef} className='wrapper'>
+    <div className=''>
+      <span ref={navbarRef} className='wrapper'>
         <Navbar />
+      </span>
+      <div
+        className='container mx-auto flex flex-col justify-center'
+        style={calcContentHeight}
+      >
+        {children}
       </div>
-      <div className='container mx-auto' style={{ minHeight: `calc(100vh - ${navbarHeight}px - ${footerHeight}px)` }} >{children}</div>
-      <div ref={footerRef} className='wrapper'>
+      <span ref={footerRef} className='wrapper'>
         <Footer />
-      </div>
-    </>
+      </span>
+    </div>
   )
 }
 
 export default Container
-
-// import {useEffect, useState, useRef} from 'react';
-
-// export default function App() {
-// const [divHeight, setDivHeight] = useState(0)
-
-// const ref = useRef(null)
-
-// useEffect(() => {
-//   setDivHeight(ref.current.clientHeight)
-//   console.log('height: ', ref.current.clientHeight)
-
-//   console.log('width: ', ref.current.clientWidth)
-// }, [])
-
-//   return (
-//     <div ref={ref}>
-//       <h2>Some</h2>
-//       <h2>Content</h2>
-//       <h2>{divHeight}</h2>
-//     </div>
-//   );
-// }
