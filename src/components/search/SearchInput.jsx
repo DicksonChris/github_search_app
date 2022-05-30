@@ -50,7 +50,7 @@ const SearchInput = () => {
 
     // Clear input text after search is complete and reset loading state
     setLoading(false)
-    ref.current.blue()
+    ref.current.blur()
   }
 
   return (
