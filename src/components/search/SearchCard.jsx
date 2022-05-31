@@ -11,7 +11,7 @@ const SearchCard = ({ avatar, username, admin }) => {
           <img
             src={avatar}
             alt={`${username}'s avatar`}
-            className='w-full min-w-24 h-24 md:h-max m-2 rounded-box bg-white shadow-lg'
+            className='w-full min-w-24 h-24 md:h-max rounded-t-box bg-white shadow-lg'
           />
         </figure>
 
