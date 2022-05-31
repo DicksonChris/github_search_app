@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 /**
  * Wraps app pages, handles header, footer, and page height. 
- * the bottom of the page by adding a min-height to the main content.
+ * Ensures the footer is at the bottom of the page by adding a min-height to the main content.
  * @props { node }  children  Child components
  */
 const Container = ({ children }) => {

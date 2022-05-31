@@ -34,12 +34,12 @@ export const useGithubDispatch = () => {
   return useContext(GithubContext)
 }
 
-const githubReducer = (state, action) => {
-  switch (action.type) {
+const githubReducer = (state, { payload, type }) => {
+  switch (type) {
     case DispatchActions.GET_USERS:
       return {
         ...state,
-        users: action.payload,
+        users: payload,
       }
     case DispatchActions.CLEAR_USERS:
       return {
