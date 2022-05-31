@@ -77,7 +77,7 @@ const SearchInput = () => {
       }
     }
     fetchSearch()
-  }, [])
+  }, [dispatch, params.search])
 
   return (
     <div className='max-w-lg mt-3'>

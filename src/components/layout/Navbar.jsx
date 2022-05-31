@@ -29,7 +29,6 @@ function Navbar({ title }) {
                 <AiFillGithub className='h-12 w-12 mx-2' />
                 <div className='inline-block'>
                   <span>
-                    {console.log(title)}
                     {title.split(' ')[0]}
                     <strong className='text-primary-content drop-shadow-md'>
                       {title.split(' ')[1]}
