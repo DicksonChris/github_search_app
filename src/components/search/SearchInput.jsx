@@ -1,14 +1,19 @@
 import PropTypes from 'prop-types'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
+import { useSearchParams } from 'react-router-dom'
+import DispatchActions from '../../context/constants'
+import GithubContext from '../../context/GithubContext'
 import Alert from './Alert'
 import { searchUsers } from './SearchActions'
 import timeout from './utils/timeout'
-import DispatchActions from '../../context/constants'
-import GithubContext from '../../context/GithubContext'
-import { useRef } from 'react'
 
+// if param in url setText to that string
 const SearchInput = () => {
+  // Handles query params
+  const PARAMS = { SEARCH: 'search' }
+  const [searchParams, setSearchParams] = useSearchParams()
+  const params = { search: searchParams.get(PARAMS.SEARCH) }
   // Handles invalid input alert
   const [showAlert, setShowAlert] = useState(false)
   const [isLoading, setLoading] = useState(false)
@@ -17,7 +22,7 @@ const SearchInput = () => {
   const [text, setText] = useState('')
 
   const { dispatch } = useContext(GithubContext)
-  
+
   const clearUsers = () => {
     dispatch({ type: DispatchActions.CLEAR_USERS })
   }
@@ -51,7 +56,28 @@ const SearchInput = () => {
     // Clear input text after search is complete and reset loading state
     setLoading(false)
     ref.current.blur()
+
+    // Handles the query params
+    setSearchParams({ search: text })
   }
+
+  useEffect(() => {
+    const fetchSearch = async () => {
+      if (params.search) {
+        console.log('search:', params.search)
+        setLoading(true)
+
+        // Search users
+        const users = await searchUsers(params.search)
+        dispatch({ type: DispatchActions.GET_USERS, payload: users })
+
+        // Clear input text after search is complete and reset loading state
+        setLoading(false)
+        ref.current.blur()
+      }
+    }
+    fetchSearch()
+  }, [])
 
   return (
     <div className='max-w-lg mt-3'>
@@ -83,7 +109,7 @@ const SearchInput = () => {
 }
 
 SearchInput.propTypes = {
-  loading: PropTypes.bool,
+  seach: PropTypes.string,
 }
 
 export default SearchInput
