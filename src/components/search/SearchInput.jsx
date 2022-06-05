@@ -83,9 +83,9 @@ const SearchInput = () => {
     <div className='max-w-lg mt-3'>
       <Alert show={showAlert} />
 
-      <form onSubmit={handleSubmit} className='input-group input-group-lg'>
+      <form onSubmit={handleSubmit} className='input-group input-group-lg mx-2 sm:mx-1 max-w-[96%] '>
         <input
-          className='input-border-radius input input-bordered input-lg w-full max-w-md text-base-content bg-base-300 focus:outline-none focus:bg-slate-100 focus:placeholder-transparent focus:text-base-300 px-4'
+          className='input-border-radius input input-bordered input-lg w-full text-base-content bg-base-300 focus:outline-none focus:bg-slate-100 focus:placeholder-transparent focus:text-base-300 px-4'
           onChange={handleChange}
           name='search'
           type='text'

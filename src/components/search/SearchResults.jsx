@@ -19,7 +19,7 @@ const SearchResults = () => {
   })
   // List Container
   return (
-    <div className='container mx-auto mt-2 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 pt-8 gap-7'>
+    <div className='container max-w-[96%] mt-2 grid mx-2 sm:mx-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 pt-8 gap-7'>
       {userList}
     </div>
   )

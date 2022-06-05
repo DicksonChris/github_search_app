@@ -6,12 +6,12 @@ const SearchCard = ({ avatar, username, admin }) => {
   return (
     <Link to={`/user/${username}`}>
 
-      <div className='card border-2 border-slate-800 shadow-xl bg-base-300 text-primary-content flex flex-row md:flex-col m-0 p-0'>
+      <div className='card border-2 border-slate-800 shadow-xl bg-base-300 text-primary-content flex flex-row md:flex-col m-0 mx p-0'>
         <figure>
           <img
             src={avatar}
             alt={`${username}'s avatar`}
-            className='w-full min-w-24 h-24 md:h-max rounded-t-box bg-white shadow-lg'
+            className='w-full min-w-24 h-24 md:h-max md:rounded-t-box bg-white shadow-lg'
           />
         </figure>
 
