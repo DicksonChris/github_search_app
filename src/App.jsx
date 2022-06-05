@@ -3,7 +3,7 @@ import Container from './components/layout/Container'
 import { GithubProvider } from './context/GithubContext'
 import About from './pages/About'
 import Home from './pages/Home'
-// import User from './pages/User'
+import User from './pages/User'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -25,7 +25,3 @@ function App() {
 }
 
 export default App
-
-const User = () => {
-  return <>User</>
-}
