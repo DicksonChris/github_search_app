@@ -1,10 +1,29 @@
 import { useParams, Link } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import UserCard from '../components/user/UserCard'
+import UserReposCard from '../components/user/UserReposCard'
+import { getUserAndRepos } from '../shared/GitHubActions'
 // import Loading from '../components/layout/Loading'
-
 
 //https://api.github.com/users/<login>
 
 function User() {
+  // <Route path='/user/:login' element={<User />} />
+  const { login } = useParams()
+  const [user, setUser] = useState()
+  const [repos, setRepos] = useState()
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getUserAndRepos(login)
+
+      setUser(response.user)
+      setRepos(response.repos)
+    }
+    fetchData()
+  }, [])
+
   // display user info
 
   // const {
@@ -23,7 +42,6 @@ function User() {
   //   public_gists,
   //   hireable,
   // } = user
- 
 
   // NOTE: check for valid url to users website
 
@@ -34,7 +52,8 @@ function User() {
       <Link to='/' className='btn '>
         Back To Search
       </Link>
-
+      <UserCard user={user} />
+      <UserReposCard repos={repos} />
 
       {/* <a
         href={html_url}

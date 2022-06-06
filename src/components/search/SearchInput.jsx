@@ -64,7 +64,6 @@ const SearchInput = () => {
   useEffect(() => {
     const fetchSearch = async () => {
       if (params.search) {
-        console.log('search:', params.search)
         setLoading(true)
 
         // Search users
