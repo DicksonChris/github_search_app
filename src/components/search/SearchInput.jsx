@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import DispatchActions from '../../context/constants'
 import GithubContext from '../../context/GithubContext'
 import Alert from './Alert'
-import { searchUsers } from './SearchActions'
+import { searchUsers } from '../../shared/GitHubActions'
 import timeout from './utils/timeout'
 
 // if param in url setText to that string

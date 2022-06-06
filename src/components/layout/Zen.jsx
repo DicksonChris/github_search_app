@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getZen } from '../search/SearchActions'
+import { getZen } from '../../shared/GitHubActions'
 
 const Zen = () => {
   const [zenQuote, setZenQuote] = useState('')
