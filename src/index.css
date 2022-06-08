@@ -9,3 +9,16 @@
 .min-w-24 {
   min-width: 6rem;
 }
+
+.loading-spinner {
+    --value: 50;
+    --size: 6rem;
+    --thickness: 0.2rem;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  

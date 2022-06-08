@@ -8,7 +8,6 @@ import { getUserAndRepos } from '../shared/GitHubActions'
 //https://api.github.com/users/<login>
 
 function User() {
-  // <Route path='/user/:login' element={<User />} />
   const { login } = useParams()
   const [user, setUser] = useState()
   const [repos, setRepos] = useState()
@@ -17,11 +16,15 @@ function User() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await getUserAndRepos(login)
+      return response
+    }
 
+    fetchData().then(response => {
       setUser(response.user)
       setRepos(response.repos)
-    }
-    fetchData()
+      setLoading(false)
+    })
+    
   }, [])
 
   // display user info
@@ -52,8 +55,9 @@ function User() {
       <Link to='/' className='btn '>
         Back To Search
       </Link>
-      <UserCard user={user} />
-      <UserReposCard repos={repos} />
+      <UserCard user={user} loading={loading} />
+      <br />
+      <UserReposCard repos={repos} loading={loading}/>
 
       {/* <a
         href={html_url}
