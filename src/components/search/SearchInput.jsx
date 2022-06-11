@@ -68,7 +68,6 @@ const SearchInput = () => {
 
         // Search users
         const users = await searchUsers(params.search)
-        console.log(users);
         dispatch({ type: DispatchActions.GET_USERS, payload: users.data.items })
 
         // Clear input text after search is complete and reset loading state
