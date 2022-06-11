@@ -1,31 +1,33 @@
-import { useParams, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import UserCard from '../components/user/UserCard'
-import UserReposCard from '../components/user/UserReposCard'
-import { getUserAndRepos } from '../shared/GitHubActions'
-// import Loading from '../components/layout/Loading'
+import UserReposCard from '../components/user/UserReposCard' 
+import { useGetUserAndRepos } from '../hooks/useGetFromGithub'
 
 //https://api.github.com/users/<login>
 
 function User() {
   const { login } = useParams()
-  const [user, setUser] = useState()
-  const [repos, setRepos] = useState()
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await getUserAndRepos(login)
-      return response
-    }
+  // Get users from context
+  // const [user, setUser] = useState({})
+  // const [repos, setRepos] = useState([])
+  // const [loading, setLoading] = useState(true)
+  // const [error, setError] = useState('')
 
-    fetchData().then(response => {
-      setUser(response.user)
-      setRepos(response.repos)
-      setLoading(false)
-    })
-    
-  }, [])
+  // useEffect(() => {
+  //   getUserAndRepos(login)
+  //     .then(({ user, repos }) => {
+  //       setUser(user)
+  //       setRepos(repos)
+  //       setLoading(false)
+  //     }
+  //     )
+  //     .catch(err => {
+  //       setError(err.message)
+  //       setLoading(false)
+  //     }
+  //     )
+  // }, [login])
 
   // display user info
 
@@ -50,14 +52,24 @@ function User() {
 
   // const websiteUrl = blog?.startsWith('http') ? blog : 'https://' + blog
 
+  const { user, repos } = useGetUserAndRepos(login)
+
   return (
     <div className='container mx-auto'>
       <Link to='/' className='btn '>
         Back To Search
       </Link>
-      <UserCard user={user} loading={loading} />
+      <UserCard
+        user={user?.data?.data}
+        loading={user.loading}
+        error={user.error}
+      />
       <br />
-      <UserReposCard repos={repos} loading={loading}/>
+      <UserReposCard
+        repos={repos?.data?.data}
+        loading={repos.loading}
+        error={repos.error}
+      />
 
       {/* <a
         href={html_url}

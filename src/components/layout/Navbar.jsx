@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { AiFillGithub } from 'react-icons/ai'
-import GithubContext from '../../context/GithubContext'
 import { useContext } from 'react'
+import { AiFillGithub } from 'react-icons/ai'
+import { Link, useNavigate } from 'react-router-dom'
 import DispatchActions from '../../context/constants'
+import GithubContext from '../../context/GithubContext'
 
 function Navbar({ title }) {
   const { dispatch } = useContext(GithubContext)
