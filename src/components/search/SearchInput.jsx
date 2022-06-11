@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useContext } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { useSearchParams } from 'react-router-dom'
-import { searchUsers } from '../../shared/GitHubActions'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import Alert from './Alert'
 import timeout from './utils/timeout'
-import { useNavigate } from 'react-router-dom'
+import { PageContext } from '../../context/PageContext'
 
 // if param in url setText to that string
 const SearchInput = () => {
+  // Get context for search results loading state
+  const { searchResultsLoading } = useContext(PageContext)
   // Used for navigating to home page when search is cleared
   const navigate = useNavigate()
 
@@ -45,8 +46,7 @@ const SearchInput = () => {
 
     setLoading(true)
 
-    // Search users
-    const users = await searchUsers(text)
+    // Search users 
     // TODO: if needed set users in context
 
     // Clear input text after search is complete and reset loading state
@@ -62,8 +62,7 @@ const SearchInput = () => {
       if (params.search) {
         setLoading(true)
 
-        // Search users
-        const users = await searchUsers(params.search)
+        // Search users 
         // TODO: if needed set users in context
 
         // Clear input text after search is complete and reset loading state
@@ -93,10 +92,10 @@ const SearchInput = () => {
         <button
           type='submit'
           className={`btn btn-square btn-primary btn-lg ${
-            isLoading && 'loading'
+            searchResultsLoading && 'loading'
           }`}
         >
-          {!isLoading && <AiOutlineSearch />}
+          {!searchResultsLoading && <AiOutlineSearch />}
         </button>
       </form>
     </div>

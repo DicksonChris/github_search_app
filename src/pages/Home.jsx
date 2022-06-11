@@ -8,13 +8,10 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    console.log('rerender')
     if (searchParams.get('search')) {
       setSearchQuery(searchParams.get('search')) // search is a query param
-      console.log('if ', searchQuery)
       return
     }
-    console.log('else ', searchQuery)
 
     setSearchQuery('')
   }, [searchParams, searchQuery])
@@ -22,7 +19,9 @@ const Home = () => {
   return (
     <div className='container mx-auto'>
       <SearchInput />
-      {searchQuery && <SearchResults searchQuery={searchQuery} key={searchQuery}/>}
+      {searchQuery && (
+        <SearchResults searchQuery={searchQuery} key={searchQuery} />
+      )}
     </div>
   )
 }

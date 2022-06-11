@@ -1,7 +1,7 @@
-import { useEffect, useState, useRef } from 'react'
-import Navbar from './Navbar'
-import Footer from './Footer'
 import PropTypes from 'prop-types'
+import { useEffect, useRef, useState } from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
 
 /**
  * Wraps app pages, handles header, footer, and page height. 

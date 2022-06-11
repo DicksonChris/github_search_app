@@ -1,11 +1,10 @@
-import { useSearchUsers } from '../../hooks/useGetFromGithub'
-import SearchCard from './SearchCard'
-import Loading from '../../components/layout/Loading'
 import Error from '../../components/layout/Error'
+import { useSetResultsLoading } from '../../context/PageContext'
+import { useSearchUsers } from '../../hooks/useGetFromGithub'
+import Loading from '../layout/Loading'
+import SearchCard from './SearchCard'
 
 const SearchResults = ({searchQuery}) => {
-  // TODO: Get login from context or props, or actually get it from query params
-
   // params needed to get users from github api
   const params = {
     params: {
@@ -15,8 +14,12 @@ const SearchResults = ({searchQuery}) => {
   }
   
   const { data, error, loading } = useSearchUsers(params)
+  
+  // Changes search results loading state in context
+  useSetResultsLoading(loading)
+  // Handles component display state
   if (loading) {
-    return <Loading />
+    return <></>
   }
   if (error) {
     return <Error error={error} />
