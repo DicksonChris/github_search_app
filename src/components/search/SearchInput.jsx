@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { useSearchParams } from 'react-router-dom'
-import DispatchActions from '../../context/constants'
-import GithubContext from '../../context/GithubContext'
-import Alert from './Alert'
 import { searchUsers } from '../../shared/GitHubActions'
+import Alert from './Alert'
 import timeout from './utils/timeout'
+import { useNavigate } from 'react-router-dom'
 
 // if param in url setText to that string
 const SearchInput = () => {
+  // Used for navigating to home page when search is cleared
+  const navigate = useNavigate()
+
   // Handles query params
   const PARAMS = { SEARCH: 'search' }
   const [searchParams, setSearchParams] = useSearchParams()
@@ -20,12 +22,6 @@ const SearchInput = () => {
 
   // Input text for searching users
   const [text, setText] = useState('')
-
-  const { dispatch } = useContext(GithubContext)
-
-  const clearUsers = () => {
-    dispatch({ type: DispatchActions.CLEAR_USERS })
-  }
 
   // Use for defocus on submit
   const ref = useRef()
@@ -39,7 +35,7 @@ const SearchInput = () => {
 
     // Check if input is empty and previous search results show
     if (text.length === 0) {
-      clearUsers()
+      navigate('/')
     }
 
     // Check if input is empty
@@ -51,7 +47,7 @@ const SearchInput = () => {
 
     // Search users
     const users = await searchUsers(text)
-    dispatch({ type: DispatchActions.GET_USERS, payload: users })
+    // TODO: if needed set users in context
 
     // Clear input text after search is complete and reset loading state
     setLoading(false)
@@ -68,7 +64,7 @@ const SearchInput = () => {
 
         // Search users
         const users = await searchUsers(params.search)
-        dispatch({ type: DispatchActions.GET_USERS, payload: users.data.items })
+        // TODO: if needed set users in context
 
         // Clear input text after search is complete and reset loading state
         setLoading(false)
@@ -76,7 +72,7 @@ const SearchInput = () => {
       }
     }
     fetchSearch()
-  }, [dispatch, params.search])
+  }, [params.search])
 
   return (
     <div className='max-w-lg mt-3'>
