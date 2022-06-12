@@ -5,9 +5,11 @@ export const PageContext = createContext()
 
 const PageContextProvider = ({ children }) => {
   const [searchResultsLoading, setSearchResultsLoading] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1)
+  
   return (
     <PageContext.Provider
-      value={{ searchResultsLoading, setSearchResultsLoading }}
+      value={{ searchResultsLoading, setSearchResultsLoading, pageNumber, setPageNumber }}
     >
       {children}
     </PageContext.Provider>
