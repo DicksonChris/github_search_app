@@ -1,10 +1,30 @@
-import { useContext } from 'react'
-import GithubContext from '../../context/GithubContext'
+import Error from '../../components/layout/Error'
+import { useSetResultsLoading } from '../../context/PageContext'
+import { useSearchUsers } from '../../hooks/useGetFromGithub'
 import SearchCard from './SearchCard'
 
-const SearchResults = () => {
-  // Get users from context
-  const { users } = useContext(GithubContext)
+const SearchResults = ({ searchQuery }) => {
+  // params needed to get users from github api
+  const params = {
+    params: {
+      q: searchQuery,
+      per_page: 24,
+    },
+  }
+
+  const { data, error, loading } = useSearchUsers(params)
+
+  // Changes search results loading state in context
+  useSetResultsLoading(loading)
+  // Handles component display state
+  if (loading) {
+    // Loading indicated in context and used in search submit button rather than here
+    return <span className='sr-only'>Loading...</span> 
+  }
+  if (error) {
+    return <Error error={error} />
+  }
+  const users = data.data.items
 
   const userList = users.map((user) => {
     // Iterate over users and return a SearchCard for each user

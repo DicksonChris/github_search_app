@@ -1,15 +1,10 @@
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { AiFillGithub } from 'react-icons/ai'
-import GithubContext from '../../context/GithubContext'
-import { useContext } from 'react'
-import DispatchActions from '../../context/constants'
-
+import { Link } from 'react-router-dom'
 function Navbar({ title }) {
-  const { dispatch } = useContext(GithubContext)
 
   const clearUsers = () => {
-    dispatch({ type: DispatchActions.CLEAR_USERS })
+    // Clear users from context
   }
 
   return (

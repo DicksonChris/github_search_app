@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react'
-import { getZen } from '../search/SearchActions'
+import { useGetFromGithub } from '../../hooks/useGetFromGithub'
+import Error from './Error'
 
 const Zen = () => {
-  const [zenQuote, setZenQuote] = useState('')
+  const { data, error, loading } = useGetFromGithub('/zen')
 
-  useEffect(() => {
-    // Get github zen quote else API is down
-    const fetchZen = async () => {
-      const quote = await getZen()
-      setZenQuote(quote)
-    }
-    fetchZen()
-  }, [])
-
+  if (loading) {
+    return <></>
+  }
+  if (error) {
+    return <Error error={error} />
+  }
+  const zenQuote = data.data
   return (
     <div className='flex flex-col mt-3 mb-1'>
       <blockquote className='prose leading-none'>

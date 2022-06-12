@@ -1,11 +1,9 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const SearchCard = ({ avatar, username, admin }) => {
+const SearchCard = ({ avatar, username, admin, bio }) => {
   return (
     <Link to={`/user/${username}`}>
-
       <div className='card border-2 border-slate-800 shadow-xl bg-base-300 text-primary-content flex flex-row md:flex-col m-0 mx p-0'>
         <figure>
           <img
@@ -20,6 +18,7 @@ const SearchCard = ({ avatar, username, admin }) => {
           {admin && <div className='badge badge-secondary'>Admin</div>}
         </div>
       </div>
+      <p>{bio}</p>
     </Link>
   )
 }
