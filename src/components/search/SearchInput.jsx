@@ -5,6 +5,7 @@ import { PageContext } from '../../context/PageContext'
 import Alert from './Alert'
 import timedConditionalCallback from './utils/timedConditionalCallback'
 import validateUsernameSearch from './utils/validateUsernameSearch'
+import { SEARCH } from '../../constants'
 
 // if param in url setText to that string
 const SearchInput = () => {
@@ -26,13 +27,15 @@ const SearchInput = () => {
   const [message, setMessage] = useState('')
   // Needed for navigating, used when submitting while search is cleared
   const navigate = useNavigate()
+  // Needed to reset page number on submit
+  const { setPageNumber } = useContext(PageContext)
   // Used to set search query in url
   const [searchParams, setSearchParams] = useSearchParams()
   // Called on submit, if valid input text, this set search query in url which will then display SearchResults
   const handleSubmit = async (event) => {
     event.preventDefault()
     // If input is empty then navigate to home page
-    if (text.length === 0 && searchParams.has('search')) {
+    if (text.length === 0 && searchParams.has(SEARCH)) {
       navigate('/')
       return
     }
@@ -46,13 +49,15 @@ const SearchInput = () => {
     // Clear focus on input field
     ref.current.blur()
     // Handles the query params
-    setSearchParams({ search: text })
+    setSearchParams({ q: text })
+    // Reset page number to 1
+    setPageNumber(1)
   }
 
   // Get context for search results loading state
   const { searchResultsLoading } = useContext(PageContext)
   return (
-    <div className='max-w-lg mt-3'>
+    <div className='max-w-lg mt-3 md:mt-6'>
       <Alert show={showAlert} message={message} />
 
       <form

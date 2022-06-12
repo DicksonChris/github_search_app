@@ -5,12 +5,6 @@ const validateUsernameSearch = (text, setMessage) => {
     return true
   }
 
-  // Validate username can't start width a hyphen
-  if (text.startsWith('-')) {
-    setMessage('Username cannot begin with a hyphen')
-    return true
-  }
-
   // Validate username only includes alphanumeric characters and hyphens
   const pattern = /^[A-Za-z0-9-]*$/
   if (!pattern.test(text)) {
