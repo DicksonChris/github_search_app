@@ -1,8 +1,7 @@
-import JSONViewer from 'react-json-viewer'
 import Loading from '../../components/layout/Loading'
 import Error from '../../components/layout/Error'
 import { FaTwitterSquare } from 'react-icons/fa'
-import { HiOutlineMail } from 'react-icons/hi'
+import { IoIosMail } from 'react-icons/io'
 
 const UserCard = ({ user, loading, error }) => {
   if (error) {
@@ -29,7 +28,6 @@ const UserCard = ({ user, loading, error }) => {
     public_gists,
     public_repos,
     twitter_username,
-    type,
     site_admin,
     created_at,
   } = user
@@ -38,7 +36,6 @@ const UserCard = ({ user, loading, error }) => {
 
   return (
     <>
-      <JSONViewer json={user} />
       <div className='flex'>
         {bio && (
           <div className='flex flex-1 flex-col'>
@@ -47,12 +44,12 @@ const UserCard = ({ user, loading, error }) => {
               {bio}
             </p>
           </div>
-        )}
+        )} 
         <div className='flex flex-1 flex-col'>
           <img
             src={avatar_url}
             alt={`User avatar of ${name}`}
-            className='rounded-sm m-16'
+            className='rounded-sm md:m-16 m-4'
           />
         </div>
         <div className='flex flex-1 flex-col items-start'>
@@ -78,56 +75,50 @@ const UserCard = ({ user, loading, error }) => {
             <p className='text-xl mb-1'>Joined: {joined}</p>
             <p className='text-xl mb-1'>Location: {location}</p>
             <p className='text-xl mb-1'>Company: {company}</p>
-            <p className='link-secondary text-xl mb-1'>
-              <a
-                target='_blank'
-                rel='noreferrer'
-                href={`${blog.startsWith('http') ? blog : '//' + blog}`}
-              >
-                {blog}
-              </a>
-            </p>
-            <p className='link-secondary text-xl mb-1'>
-              <a
-                className='flex items-center'
-                target='_blank'
-                rel='noreferrer'
-                href={`https://twitter.com/${twitter_username}`}
-              >
-                <FaTwitterSquare className='mr-2' /> {twitter_username}
-              </a>
-            </p>
           </div>
           <div className='pl-4 pr-4 pb-4'>
             <p className='text-xl mb-1'>Followers: {followers}</p>
             <p className='text-xl mb-1'>Following: {following}</p>
             <p className='text-xl mb-1'>Public Repos: {public_repos}</p>
             <p className='text-xl mb-1'>Public Gists: {public_gists}</p>
+          </div>
+          <div className='pl-4 p4-4 pb-4'>
             <p className='link-secondary text-xl mb-1'>
               <a href={html_url}>github.com/{login}</a>
             </p>
+            {blog && (
+              <p className='link-secondary text-xl mb-1'>
+                <a
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`${blog.startsWith('http') ? blog : '//' + blog}`}
+                >
+                  {blog}
+                </a>
+              </p>
+            )}
+            {twitter_username && (
+              <p className='link-secondary text-xl mb-1'>
+                <a
+                  className='flex items-center'
+                  target='_blank'
+                  rel='noreferrer'
+                  href={`https://twitter.com/${twitter_username}`}
+                >
+                  <FaTwitterSquare className='mr-2' /> {twitter_username}
+                </a>
+              </p>
+            )}
             {email && (
-              <div className='link-secondary text-lg mb-1 inline-block'>
-                <a href={`mailto:${email}`}>
-                  <HiOutlineMail />
+              <p className='link-secondary text-xl mb-1'>
+                <a className='flex items-end' href={`mailto:${email}`}>
+                  <IoIosMail className='mr-2 text-2xl' />
                   {email}
                 </a>
-              </div>
+              </p>
             )}
           </div>
         </div>
-      </div>
-      <div className='flex flex-col items-center justify-center'>
-        <img
-          src={avatar_url}
-          alt={`${name}'s avatar`}
-          className='rounded-sm w-32 h-32'
-        />
-        <h1 className='text-2xl font-bold mt-4'>{name}</h1>
-
-        <p className='text-xl text-gray-600'>
-          <a href={blog}>{blog}</a>
-        </p>
       </div>
     </>
   )
