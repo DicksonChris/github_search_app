@@ -46,6 +46,19 @@ const SearchInput = () => {
       return
     }
 
+    // Validate username length is less than 39 characters
+    if (text.length > 39) {
+      setMessage('Username too long')
+      return
+    }
+
+    // Validate username only includes alphanumeric characters and hyphens
+    const pattern = /^[A-Za-z0-9-]*$/
+    if (!pattern.test(text)) {
+      setMessage('Invalid character in username')
+      return
+    }
+
     // Clear focus on input field
     ref.current.blur()
     // Handles the query params
