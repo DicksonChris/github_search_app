@@ -44,7 +44,7 @@ const UserCard = ({ user, loading, error }) => {
               {bio}
             </p>
           </div>
-        )}
+        )} 
         <div className='flex flex-1 flex-col'>
           <img
             src={avatar_url}
