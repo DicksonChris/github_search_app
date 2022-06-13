@@ -1,12 +1,14 @@
 import { Link, useParams } from 'react-router-dom'
 import UserCard from '../components/user/UserCard'
-import UserReposCard from '../components/user/UserReposCard' 
+import UserReposCard from '../components/user/UserReposCard'
 import { useGetUserAndRepos } from '../hooks/useGetFromGithub'
+import { useNavigate } from 'react-router-dom'
 
 //https://api.github.com/users/<login>
 
 function User() {
   const { login } = useParams()
+  const navigate = useNavigate()
 
   // Get users from context
   // const [user, setUser] = useState({})
@@ -56,9 +58,9 @@ function User() {
 
   return (
     <div className='container mx-auto'>
-      <Link to='/' className='btn '>
+      <button className='btn mt-3 mb-4' onClick={() => navigate(-1)}>
         Back To Search
-      </Link>
+      </button>
       <UserCard
         user={user?.data?.data}
         loading={user.loading}
