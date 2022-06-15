@@ -80,8 +80,8 @@ const UserCard = ({ user, loading, error }) => {
           )}
           <div className='p-4 '>
             <p className='text-xl mb-1'>Joined: {joined}</p>
-            <p className='text-xl mb-1'>Location: {location}</p>
-            <p className='text-xl mb-1'>Company: {company}</p>
+            {location && <p className='text-xl mb-1'>Location: {location}</p>}
+            {company && <p className='text-xl mb-1'>Company: {company}</p>}
           </div>
           <div className='pl-4 pr-4 pb-4'>
             <p className='text-xl mb-1'>Followers: {followers}</p>
