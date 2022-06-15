@@ -57,7 +57,7 @@ const SearchInput = () => {
   // Get context for search results loading state
   const { searchResultsLoading } = useContext(PageContext)
   return (
-    <div className='max-w-lg mt-3 md:mt-6'>
+    <div className='max-w-lg mt-3 md:mt-6 pb-10'>
       <Alert show={showAlert} message={message} />
 
       <form

@@ -8,16 +8,41 @@ import { SEARCH } from '../constants'
 const Home = () => {
   const [searchParams] = useSearchParams()
   const [searchQuery, setSearchQuery] = useState('')
-  const { pageNumber, setPageNumber } = useContext(PageContext)
+  const {
+    pageNumber,
+    setPageNumber,
+    setReposPageNumber,
+    setSearchResults,
+    setSearchPaginationState,
+    setReposPaginationState,
+    setUserRepos,
+  } = useContext(PageContext)
 
   useEffect(() => {
     if (searchParams.get(SEARCH)) {
       setSearchQuery(searchParams.get(SEARCH)) // search is a query param
       return
     }
-    // Resets search query and page number when navigating to home page
+    // Resets context
     setSearchQuery('')
+    // Reset page numbers
     setPageNumber(1)
+    setReposPageNumber(1)
+    setSearchPaginationState({
+      link: {},
+      setPageNumber: () => {},
+      pageNumber: 1,
+      component: 'search',
+    })
+    setReposPaginationState({
+      link: {},
+      setPageNumber: () => {},
+      pageNumber: 1,
+      component: 'repos',
+    })
+    // Reset fetched data
+    setSearchResults([])
+    setUserRepos([])
   }, [searchParams, searchQuery])
 
   return (
@@ -27,6 +52,7 @@ const Home = () => {
         <SearchView
           searchQuery={searchQuery}
           pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
           key={[searchQuery, pageNumber]}
         />
       )}

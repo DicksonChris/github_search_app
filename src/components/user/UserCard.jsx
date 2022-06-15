@@ -36,41 +36,48 @@ const UserCard = ({ user, loading, error }) => {
 
   return (
     <>
-      <div className='flex'>
-        {bio && (
-          <div className='flex flex-1 flex-col'>
-            <h2 className='text-2xl font-bold mb-4 p-4'>About</h2>
-            <p className='px-4 text-2xl' style={{ lineHeight: '1.6' }}>
-              {bio}
-            </p>
-          </div>
-        )} 
-        <div className='flex flex-1 flex-col'>
+      <div className='grid sm:grid-cols-2 gap-8 max-w-screen-sm'>
+        <div className='flex flex-col px-4 mt-4'>
           <img
             src={avatar_url}
             alt={`User avatar of ${name}`}
-            className='rounded-sm md:m-16 m-4'
+            className='rounded-sm mb-8'
           />
-        </div>
-        <div className='flex flex-1 flex-col items-start'>
-          <div className='flex mt-4 items-center'>
-            <h1 className='text-2xl font-bold flex p-4'>{name}</h1>
-          </div>
-          <div className='flex px-4 pt-4 pb-2'>
-            {hireable && (
-              <div className='badge badge-accent badge-lg text-white mr-2'>
-                Hireable
-              </div>
-            )}
-            {site_admin && (
-              <div
-                style={{ backgroundColor: '#dc3545' }}
-                className='badge badge-lg text-white mr-2'
+          {bio && (
+            <>
+              <h2 className='text-2xl font-bold mb-4 text-accent'>About</h2>
+              <p
+                className='text-xl'
+                style={{ lineHeight: '1.6' }}
               >
-                Admin
-              </div>
-            )}
-          </div>
+                {bio}
+              </p>
+            </>
+          )}
+        </div>
+        <div className='flex flex-col items-start'>
+          {name && (
+            <div className='flex mt-4 items-center'>
+              <h1 className='text-4xl font-bold flex p-4 text-primary'>{name}</h1>
+            </div>
+          )}
+          {(hireable || site_admin) && (
+            <div className='flex px-4 pt-4 pb-2'>
+              {hireable && (
+                <div className='badge badge-accent badge-lg text-white mr-2'>
+                  Hireable
+                </div>
+              )}
+              {site_admin && (
+                <div
+                  style={{ backgroundColor: '#dc3545' }}
+                  className='badge badge-lg text-white mr-2'
+                >
+                  Admin
+                </div>
+              )}
+            </div>
+          )}
           <div className='p-4 '>
             <p className='text-xl mb-1'>Joined: {joined}</p>
             <p className='text-xl mb-1'>Location: {location}</p>
