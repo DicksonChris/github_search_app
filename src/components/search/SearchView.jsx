@@ -1,11 +1,25 @@
+import { parseLinkHeader } from '@web3-storage/parse-link-header'
+import { useContext, useEffect } from 'react'
 import Error from '../../components/layout/Error'
-import { useSetResultsLoading } from '../../context/PageContext'
+import Pagination from '../../components/layout/Pagination'
+import { PageContext, useSetResultsLoading } from '../../context/PageContext'
 import { useSearchUsers } from '../../hooks/useGetFromGithub'
 import SearchResults from './SearchResults'
-import { parseLinkHeader } from '@web3-storage/parse-link-header'
-import Pagination from './Pagination'
 
 const SearchView = ({ searchQuery, pageNumber }) => {
+  const {
+    setPageNumber,
+    setReposPageNumber,
+    setUserRepos,
+    searchResults,
+    searchPaginationState,
+  } = useContext(PageContext)
+  // Reset repos page number when navigation between users
+  useEffect(() => {
+    setReposPageNumber(1)
+    setUserRepos([])
+  }, [])
+
   // params needed to get users from github api
   const params = {
     params: {
@@ -21,8 +35,15 @@ const SearchView = ({ searchQuery, pageNumber }) => {
   useSetResultsLoading(loading)
   // Handles component display state
   if (loading) {
-    // Loading indicated in context and used in search submit button rather than here
-    return <span className='sr-only'>Loading...</span>
+    return searchResults ? (
+      <>
+        <Pagination {...searchPaginationState} />
+        <SearchResults users={searchResults} />
+      </>
+    ) : (
+      // Loading indicated in context and used in search submit button rather than here
+      <span className='sr-only'>Loading...</span>
+    )
   }
   if (error) {
     return <Error error={error} />
@@ -35,8 +56,23 @@ const SearchView = ({ searchQuery, pageNumber }) => {
 
   return (
     <>
-      {hasPagination && <Pagination link={linkHeader} />}
+      {hasPagination && (
+        <Pagination
+          link={linkHeader}
+          setPageNumber={setPageNumber}
+          pageNumber={pageNumber}
+          component='search'
+        />
+      )}
       <SearchResults users={users} />
+      {hasPagination && (
+        <Pagination
+          link={linkHeader}
+          setPageNumber={setPageNumber}
+          pageNumber={pageNumber}
+          component='search'
+        />
+      )}
     </>
   )
 }

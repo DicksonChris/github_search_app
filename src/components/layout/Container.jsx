@@ -14,9 +14,11 @@ const Container = ({ children }) => {
   const navbarRef = useRef(null)
   const footerRef = useRef(null)
 
+  const footerMargin = 64
+
   useEffect(() => {
     setNavbarHeight(navbarRef.current.offsetHeight)
-    setFooterHeight(footerRef.current.offsetHeight)
+    setFooterHeight(footerRef.current.offsetHeight + footerMargin)
   }, [])
 
   const calcContentHeight = {
@@ -24,7 +26,7 @@ const Container = ({ children }) => {
   }
 
   return (
-    <div className=''>
+    <>
       <span ref={navbarRef} className='wrapper'>
         <Navbar />
       </span>
@@ -37,7 +39,7 @@ const Container = ({ children }) => {
       <span ref={footerRef} className='wrapper'>
         <Footer />
       </span>
-    </div>
+    </>
   )
 }
 

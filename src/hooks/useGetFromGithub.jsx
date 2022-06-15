@@ -14,12 +14,15 @@ export const useSearchUsers = (params) => {
   return useGetFromGithub('/search/users', params)
 }
 
+// Rakes a login and params and returns a promise that resolves to that user's repos
+export const useGetUserRepos = (login, params) => {
+  return useGetFromGithub(`/users/${login}/repos`, params)
+}
+
 // Takes a login and returns a promise that resolves to the user and their repos
-export const useGetUserAndRepos = (login) => {
-  const params = { sort: 'created', per_page: 10 }
+export const useGetUser = (login) => {
   return {
     user: useGetFromGithub(`/users/${login}`),
-    repos: useGetFromGithub(`/users/${login}/repos`, params),
   }
 }
 

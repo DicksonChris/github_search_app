@@ -1,15 +1,31 @@
 import { useContext } from 'react'
 import { PageContext } from '../../context/PageContext'
 
-const Pagination = ({ link }) => {
-  const { pageNumber, setPageNumber } = useContext(PageContext)
+const Pagination = ({ link, setPageNumber, pageNumber, component }) => {
+  const { setReposPaginationState, setSearchPaginationState } =
+    useContext(PageContext)
 
   const handleClick = (page) => {
     setPageNumber(page)
+    if (component === 'search') {
+      setSearchPaginationState({
+        link,
+        setPageNumber: () => {},
+        pageNumber,
+        component,
+      })
+    } else {
+      setReposPaginationState({
+        link,
+        setPageNumber: () => {},
+        pageNumber,
+        component,
+      })
+    }
   }
 
   return (
-    <div className='btn-group mt-2 pt-8 pb-4 mx-2'>
+    <div className='btn-group mt-2 pb-4 mx-2 mb-3'>
       {/* First page */}
       <button
         onClick={() => handleClick(1)}

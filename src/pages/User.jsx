@@ -1,101 +1,37 @@
 import { Link, useParams } from 'react-router-dom'
 import UserCard from '../components/user/UserCard'
-import UserReposCard from '../components/user/UserReposCard' 
-import { useGetUserAndRepos } from '../hooks/useGetFromGithub'
+import UserReposCard from '../components/user/UserReposCard'
+import { useGetUser } from '../hooks/useGetFromGithub'
+import { useNavigate } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { PageContext } from '../context/PageContext'
 
 //https://api.github.com/users/<login>
 
 function User() {
   const { login } = useParams()
+  const navigate = useNavigate()
+  const { reposPageNumber, setReposPageNumber } = useContext(PageContext)
 
-  // Get users from context
-  // const [user, setUser] = useState({})
-  // const [repos, setRepos] = useState([])
-  // const [loading, setLoading] = useState(true)
-  // const [error, setError] = useState('')
-
-  // useEffect(() => {
-  //   getUserAndRepos(login)
-  //     .then(({ user, repos }) => {
-  //       setUser(user)
-  //       setRepos(repos)
-  //       setLoading(false)
-  //     }
-  //     )
-  //     .catch(err => {
-  //       setError(err.message)
-  //       setLoading(false)
-  //     }
-  //     )
-  // }, [login])
-
-  // display user info
-
-  // const {
-  //   name,
-  //   type,
-  //   avatar_url,
-  //   location,
-  //   bio,
-  //   blog,
-  //   twitter_username,
-  //   login,
-  //   html_url,
-  //   followers,
-  //   following,
-  //   public_repos,
-  //   public_gists,
-  //   hireable,
-  // } = user
-
-  // NOTE: check for valid url to users website
-
-  // const websiteUrl = blog?.startsWith('http') ? blog : 'https://' + blog
-
-  const { user, repos } = useGetUserAndRepos(login)
+  const { user } = useGetUser(login)
 
   return (
-    <div className='container mx-auto'>
-      <Link to='/' className='btn '>
+    <div className='grid justify-center'>
+      <button
+        className='btn mt-6 mx-4 mb-4 sm:max-w-[12rem]'
+        onClick={() => {
+          setReposPageNumber(1)
+          navigate(-1)
+        }}
+      >
         Back To Search
-      </Link>
+      </button>
       <UserCard
         user={user?.data?.data}
         loading={user.loading}
         error={user.error}
       />
-      <br />
-      <UserReposCard
-        repos={repos?.data?.data}
-        loading={repos.loading}
-        error={repos.error}
-      />
-
-      {/* <a
-        href={html_url}
-        target='_blank'
-        rel='noreferrer'
-        className='btn btn-outline'
-      >
-        Visit Github Profile
-      </a>{' '}
-      <div className='stat-title text-md'>Website</div>
-      <div className='text-lg stat-value'>
-        <a href={websiteUrl} target='_blank' rel='noreferrer'>
-          {websiteUrl}
-        </a>
-      </div>
-      <div className='stat-title text-md'>Twitter</div>
-      <div className='text-lg stat-value'>
-        <a
-          href={`https://twitter.com/${twitter_username}`}
-          target='_blank'
-          rel='noreferrer'
-        >
-          {twitter_username}
-        </a>
-      </div> */}
-      {/* Repos component */}
+      <UserReposCard login={login} key={[login, reposPageNumber]} />
     </div>
   )
 }
